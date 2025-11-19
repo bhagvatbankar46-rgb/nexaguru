@@ -1,0 +1,5 @@
+{
+  "name": "Nexa Guru",
+  "description": "A premium AI image generation tool using Gemini Imagen 4.0 with a credit-based system and subscription simulation.",
+  "requestFramePermissions": []
+}
