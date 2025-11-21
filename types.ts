@@ -21,6 +21,7 @@ export interface User {
 
 export const INITIAL_CREDITS = 20;
 export const COST_PER_IMAGE = 1;
+export const COST_PER_VIDEO = 5; // Premium video cost
 
 export const PLANS: Plan[] = [
   {

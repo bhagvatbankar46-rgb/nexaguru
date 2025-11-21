@@ -1,5 +1,5 @@
 {
   "name": "Nexa Guru",
-  "description": "A premium AI image generation tool using Gemini Imagen 4.0 with a credit-based system and subscription simulation.",
+  "description": "A premium AI creative studio using Gemini Imagen 4.0 and Veo 3 for generating high-fidelity images and videos. Features a credit system and secure authentication.",
   "requestFramePermissions": []
 }

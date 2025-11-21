@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { INITIAL_CREDITS, COST_PER_IMAGE, User } from './types';
+import { INITIAL_CREDITS, User } from './types';
 import CreditDisplay from './components/CreditDisplay';
 import SubscriptionModal from './components/SubscriptionModal';
 import SupportModal from './components/SupportModal';
@@ -8,6 +8,7 @@ import GiftCodeModal from './components/GiftCodeModal';
 import ImageGenerator from './components/ImageGenerator';
 import AdminPanel from './components/AdminPanel';
 import AuthScreen from './components/AuthScreen';
+import InstallGuide from './components/InstallGuide';
 import { Crown, Headphones, Gift, Sparkles, LogOut } from 'lucide-react';
 
 const App: React.FC = () => {
@@ -61,10 +62,14 @@ const App: React.FC = () => {
     localStorage.removeItem('royal_current_user');
   };
 
-  const handleConsumeCredit = () => {
+  const handleConsumeCredit = (amount: number) => {
     if (!user) return;
-    const newCredits = Math.max(0, user.credits - COST_PER_IMAGE);
+    const newCredits = Math.max(0, user.credits - amount);
     updateUserInStorage({ ...user, credits: newCredits });
+  };
+
+  const canGenerate = (cost: number) => {
+    return (user?.credits || 0) >= cost;
   };
 
   const handleAddCredits = (amount: number) => {
@@ -139,6 +144,8 @@ const App: React.FC = () => {
                
                {/* Desktop/Tablet Menu */}
                <div className="flex items-center gap-2">
+                  <InstallGuide />
+                  
                   <button
                     onClick={() => setIsGiftOpen(true)}
                     className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium text-gray-300 hover:text-royal-gold hover:bg-white/5 transition-all border border-transparent hover:border-white/5"
@@ -202,7 +209,7 @@ const App: React.FC = () => {
           
           <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto font-light leading-relaxed">
             Logged in as <span className="text-white font-medium border-b border-royal-gold/50 pb-0.5">{user.email}</span>. 
-            Experience the power of Imagen 4.0 to transform your concepts into high-fidelity digital assets.
+            Experience the power of Imagen 4.0 and Veo 3 to transform your concepts into high-fidelity digital assets.
           </p>
         </div>
 
@@ -213,7 +220,7 @@ const App: React.FC = () => {
             
             <div className="relative bg-[#0B1120]/60 backdrop-blur-sm rounded-3xl p-1 sm:p-2 shadow-2xl">
                 <ImageGenerator 
-                canGenerate={credits >= COST_PER_IMAGE}
+                canGenerate={canGenerate}
                 onConsumeCredit={handleConsumeCredit}
                 onOpenSubscription={openSubscription}
                 />
